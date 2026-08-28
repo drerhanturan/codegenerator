@@ -1,30 +1,37 @@
-# On Skew Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$: Structure, Gray Images, and New Quaternary Linear Codes
+# An Algebraically-Guided Computational Framework for Constructing Optimal Skew-Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 Official Python implementation and computational search engine accompanying the research manuscript:
-> **"On Skew Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$: Structure, Gray Images, and New Quaternary Linear Codes"**  
+> **"An Algebraically-Guided Computational Framework for Constructing Optimal Skew-Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$"**  
 > *Basri Çalışkan, Erhan Turan, and Cennet Eskal*
 
----
 
-## 📌 Overview
-
-Exhaustive search over polynomial rings is computationally intractable due to exponential state space expansion ($\mathcal{O}(16^n)$). This framework implements a **two-phase algebraically-guided search engine** that collapses the effective combinatorial search domain to $\mathcal{O}(16^{n/2})$:
-
-1. **Symbolic Phase (SymPy):** Enforces quotient relations ($u^2 = 2$), computes the ring automorphism $\sigma$, and strictly restricts candidate generation to self-dual structural invariants ($c_i = -\theta(c_{n-1-i})$).
-2. **Vectorized Numerical Funnel:** Maps candidate structures via vectorized Gray maps, performs Gaussian elimination over $\mathbb{Z}_4$, and filters candidates via rank-profile pruning prior to high-cost minimum Lee distance ($d_L$) evaluations.
-3. **Automated Magma Cross-Validation:** Features a pure-Python client that verifies candidate weight spectra and target Lee distances via the online Magma calculator API—requiring **no local Magma installation**.
+This repository provides the official implementation of the computational search engine for discovering optimal skew-cyclic ($\Delta_\theta$-cyclic) codes over the non-chain ring extension $R = \mathbb{Z}_4[u]/\langle u^2 - 2 \rangle$, along with their quaternary Gray projections and binary linear images.
 
 ---
+
+## Overview
+
+The framework combines symbolic ring manipulations with high-throughput vectorized linear algebra over $\mathbb{Z}_4$. By integrating number-theoretic invariants and rank-profile constraints, the combinatorial search complexity is reduced from $\mathcal{O}(16^n)$ down to $\mathcal{O}(16^{n/2})$.
+
+### Key Pipeline Stages
+1. *Structural Pre-Analysis:* Configures anti-palindromic self-dual invariants and modular divisibility rules for block length $n$.
+2. *Constrained Generator Synthesis:* Samples candidate polynomials $g(x) \in R[x, \theta, \Delta_\theta]$ subject to unit-leading constraints.
+3. *Vectorized Gray Mapping & $\mathbb{Z}_4$-Gaussian Elimination:* Maps generator matrices into $\mathbb{Z}_4^{2n \times 2n}$ and extracts canonical code types $4^{k_1}2^{k_2}$ using a two-stage pivot reduction (order-4 and order-2 pivots).
+4. *Hybrid Distance Evaluation:* Employs exact deterministic evaluation for $|C| \le 10^5$ and a two-phase sieve (Low-Weight Basis Scan + Monte Carlo uniform sampling) for large code regimes ($|C| > 10^5$).
+5. *CAS Formal Verification:* Integrates automated Magma routines to rigorously verify minimum Lee weights ($d_L$) and binary linearity.
+
+---
+ 
 
 ## 🚀 Key Results & Benchmarks
 
 | Length $n$ | Gray Length $2n$ | Full Search Space | Constrained Space | Best $d_L$ Found | Avg. Iterations / Runtime |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | **$n=8$** | $16$ | $\approx 4.29 \times 10^9$ | $65,536$ | **$8$** | $\approx 100\text{ iter } (\sim 83\text{ s})$ |
-| **$n=8$** | $16$ | $\approx 4.29 \times 10^9$ | $65,536$ | **$8,4$** | $\approx 100\text{ iter } (\sim 93\text{ s})$ |
+| **$n=8$** | $16$ | $\approx 4.29 \times 10^9$ | $65,536$ | **$8$** | $\approx 100\text{ iter } (\sim 93\text{ s})$ |
 | **$n=16$** | $32$ | $\approx 1.84 \times 10^{19}$ | $\approx 4.29 \times 10^9$ | **$8$** | $\approx 10,000\text{ iter } (\sim 6\text{ h } 05\text{ m})$ |
 
 *Benchmarks executed on an Intel® Core™ i7-13620H processor with 16 GB RAM.*
@@ -100,7 +107,7 @@ This repository provides the official implementation and reproducibility assets 
 ```bibtex
 @unpublished{caliskan2026skewz4,
   author = {Basri \c{C}al{\i}\c{s}kan and Erhan Turan and Cennet Eskal},
-  title  = {On Skew Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$: Structure, Gray Images, and New Quaternary Linear Codes},
+  title  = {An Algebraically-Guided Computational Framework for Constructing Optimal Skew-Cyclic Codes Over $\mathbb{Z}_4 + u\mathbb{Z}_4$},
   note   = {Manuscript submitted for publication},
   year   = {2026}
 }
