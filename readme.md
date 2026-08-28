@@ -19,7 +19,7 @@ The framework combines symbolic ring manipulations with high-throughput vectoriz
 ### Key Pipeline Stages
 1. *Structural Pre-Analysis:* Configures anti-palindromic self-dual invariants and modular divisibility rules for block length $n$.
 2. *Constrained Generator Synthesis:* Samples candidate polynomials $g(x) \in R[x, \theta, \Delta_\theta]$ subject to unit-leading constraints.
-3. *Vectorized Gray Mapping & $\mathbb{Z}_4$-Gaussian Elimination:* Maps generator matrices into $\mathbb{Z}_4^{2n \times 2n}$ and extracts canonical code types $4^{k_1}2^{k_2}$ using a two-stage pivot reduction (order-4 and order-2 pivots).
+3. *Vectorized Gray Mapping & Z4-Gaussian Elimination:* Maps generator matrices into $\mathbb{Z}_4^{2n \times 2n}$ and extracts canonical code types $4^{k_1}2^{k_2}$ using a two-stage pivot reduction (order-4 and order-2 pivots).
 4. *Hybrid Distance Evaluation:* Employs exact deterministic evaluation for $|C| \le 10^5$ and a two-phase sieve (Low-Weight Basis Scan + Monte Carlo uniform sampling) for large code regimes ($|C| > 10^5$).
 5. *CAS Formal Verification:* Integrates automated Magma routines to rigorously verify minimum Lee weights ($d_L$) and binary linearity.
 
